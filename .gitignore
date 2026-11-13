@@ -1,0 +1,29 @@
+# Données (trop volumineuses pour Git)
+data/raw/*
+data/bronze/*
+data/silver/*
+data/gold/*
+!data/**/.gitkeep
+*.csv
+*.parquet
+*.zip
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.ipynb_checkpoints/
+
+# Environnement / secrets
+.env
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+
+# Spark
+spark-warehouse/
+metastore_db/
+derby.log
