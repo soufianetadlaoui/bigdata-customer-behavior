@@ -34,19 +34,3 @@ services:
     environment:
       - SPARK_WORKER_MEMORY=${SPARK_WORKER_MEMORY:-2g}
       - SPARK_WORKER_CORES=${SPARK_WORKER_CORES:-2}
-
-  minio:
-    image: minio/minio:latest
-    container_name: minio
-    command: server /data --console-address ":9001"
-    ports:
-      - "9000:9000"   # API S3
-      - "9001:9001"   # Console web
-    environment:
-      - MINIO_ROOT_USER=${MINIO_ROOT_USER:-minioadmin}
-      - MINIO_ROOT_PASSWORD=${MINIO_ROOT_PASSWORD:-minioadmin123}
-    volumes:
-      - minio_data:/data
-
-volumes:
-  minio_data:

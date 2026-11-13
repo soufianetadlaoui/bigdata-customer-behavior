@@ -16,7 +16,7 @@ Données brutes (CSV) → Spark → Data Lake MinIO/HDFS (Bronze/Silver/Gold)
 ```
 
 ## Stack
-Apache Spark 3.5 · MinIO · Parquet · Kafka (plus tard) · Airflow (plus tard) · Streamlit · Docker
+Apache Spark 3.5 · Parquet sur système de fichiers partagé · Parquet · Kafka (plus tard) · Airflow (plus tard) · Streamlit · Docker
 
 ## Démarrage rapide
 ```bash
@@ -26,7 +26,6 @@ cp .env.example .env
 docker compose up -d
 ```
 - Spark Master UI : http://localhost:8080
-- MinIO Console : http://localhost:9001
 
 ## Données
 Dataset : *eCommerce behavior data from multi-category store* (Kaggle, REES46).
