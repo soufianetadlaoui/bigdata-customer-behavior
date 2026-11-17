@@ -65,18 +65,23 @@ ax.grid(False)
 fig.colorbar(im, ax=ax, label="Événements")
 save(fig, "02_activite_heure_jour")
 
-# --- 3. Entonnoir de conversion ------------------------------------------------------------
-f = rd("funnel").iloc[0]
-stages = ["Sessions", "Sessions avec panier", "Sessions avec achat"]
-vals = [f.sessions, f.with_cart, f.with_purchase]
-fig, ax = plt.subplots(figsize=(8, 3.8))
+# --- 3. Entonnoir de conversion (niveau client x produit) ---------------------------------------
+# Calculé par funnel_product.py : un produit est suivi d'une session à l'autre, ce qui
+# garantit un entonnoir monotone (contrairement au niveau session).
+f = rd("funnel_product").iloc[0]
+stages = ["Produits consultés", "Consultés puis mis au panier", "Mis au panier puis achetés"]
+vals = [f.viewed, f.viewed_carted, f.viewed_carted_purchased]
+fig, ax = plt.subplots(figsize=(9, 3.8))
 bars = ax.barh(stages[::-1], vals[::-1], color=["#e0572a", "#f2a33a", "#2a6fdb"])
 for b, v in zip(bars, vals[::-1]):
-    ax.text(v, b.get_y() + b.get_height() / 2, f"  {int(v):,} ({100 * v / f.sessions:.1f} %)", va="center")
-ax.set_xlim(0, f.sessions * 1.35)
-ax.set_title(f"Entonnoir de conversion (abandon de panier : {100 * f.cart_abandon_rate:.1f} %)")
+    ax.text(v, b.get_y() + b.get_height() / 2, f"  {int(v):,} ({100 * v / f.viewed:.2f} %)", va="center")
+ax.set_xlim(0, f.viewed * 1.4)
+ax.set_title(
+    f"Entonnoir par couple client-produit (abandon de panier : {100 * f.cart_abandon_rate:.1f} %)"
+)
 ax.grid(False)
 save(fig, "03_entonnoir")
+print(f"Achats sans panier préalable : {100 * f.direct_purchase_share:.1f} % des produits achetés\n")
 
 # --- 4. Conversion par catégorie --------------------------------------------------------------
 c = rd("funnel_category")
