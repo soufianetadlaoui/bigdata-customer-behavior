@@ -1,0 +1,6 @@
+segment,segment_type,users,revenue,user_share,revenue_share
+Champions,buyer,6473,14230080.32,0.0215,0.6083
+Fidèles,buyer,21098,8067061.23,0.0699,0.3449
+À risque,buyer,7221,1095185.15,0.0239,0.0468
+Visiteurs,non_buyer,253416,0.0,0.8401,0.0
+Panier sans achat,non_buyer,13424,0.0,0.0445,0.0

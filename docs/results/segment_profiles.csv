@@ -1,0 +1,4 @@
+cluster,segment,users,avg_recency_days,avg_frequency,avg_monetary,avg_sessions,avg_categories,revenue
+1,Champions,6473,9.0,4.53,2198.37,14.32,1.24,14230080.32
+2,Fidèles,21098,15.22,1.18,382.36,4.87,1.02,8067061.23
+0,À risque,7221,15.17,1.22,151.67,7.03,0.0,1095185.15
