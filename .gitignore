@@ -1,4 +1,5 @@
-# Données (trop volumineuses pour Git)
+@"
+# Donnees (trop volumineuses pour Git)
 data/raw/*
 data/bronze/*
 data/silver/*
@@ -7,6 +8,10 @@ data/gold/*
 *.csv
 *.parquet
 *.zip
+*.log
+
+# Resultats agreges (petits, a versionner)
+!docs/results/*.csv
 
 # Python
 __pycache__/
@@ -27,3 +32,4 @@ venv/
 spark-warehouse/
 metastore_db/
 derby.log
+"@ | Out-File -Encoding ascii .gitignore

@@ -1,0 +1,17 @@
+{
+  "bronze_rows": 4224899,
+  "silver_rows": 4214874,
+  "rejected_by_rule": {
+    "R3_prix_invalide": 6808,
+    "R5_doublons": 3217,
+    "R6_sessions_aberrantes(>500)": 0
+  },
+  "session_size": {
+    "median": 2.0,
+    "p99": 31.0,
+    "p999": 288.0,
+    "max": 288
+  },
+  "max_session_events_threshold": 500,
+  "elapsed_seconds": 318.9
+}
