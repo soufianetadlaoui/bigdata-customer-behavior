@@ -1,6 +1,9 @@
 segment,segment_type,users,revenue,user_share,revenue_share
-Champions,buyer,6473,14230080.32,0.0215,0.6083
-Fidèles,buyer,21098,8067061.23,0.0699,0.3449
-À risque,buyer,7221,1095185.15,0.0239,0.0468
+VIP multi-categories,buyer,1394,6675415.7,0.0046,0.2854
+Fideles forte valeur,buyer,3940,6617136.9,0.0131,0.2829
+Ponctuels inactifs,buyer,8920,3230199.18,0.0296,0.1381
+Nouveaux acheteurs,buyer,9292,3011810.8,0.0308,0.1288
+Reguliers explorateurs,buyer,4355,2952983.07,0.0144,0.1262
+Petits paniers navigateurs,buyer,6891,904781.05,0.0228,0.0387
 Visiteurs,non_buyer,253416,0.0,0.8401,0.0
 Panier sans achat,non_buyer,13424,0.0,0.0445,0.0

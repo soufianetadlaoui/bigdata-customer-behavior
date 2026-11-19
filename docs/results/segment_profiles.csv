@@ -1,4 +1,7 @@
 cluster,segment,users,avg_recency_days,avg_frequency,avg_monetary,avg_sessions,avg_categories,revenue
-1,Champions,6473,9.0,4.53,2198.37,14.32,1.24,14230080.32
-2,Fidèles,21098,15.22,1.18,382.36,4.87,1.02,8067061.23
-0,À risque,7221,15.17,1.22,151.67,7.03,0.0,1095185.15
+0,VIP multi-categories,1394,6.34,9.37,4788.68,22.14,3.42,6675415.7
+4,Fideles forte valeur,3940,10.81,2.95,1679.48,9.7,1.0,6617136.9
+2,Ponctuels inactifs,8920,23.68,1.09,362.13,2.83,1.02,3230199.18
+1,Nouveaux acheteurs,9292,7.36,1.08,324.13,2.69,1.01,3011810.8
+3,Reguliers explorateurs,4355,11.16,2.5,678.07,10.22,2.19,2952983.07
+5,Petits paniers navigateurs,6891,15.88,1.11,131.3,11.96,1.01,904781.05

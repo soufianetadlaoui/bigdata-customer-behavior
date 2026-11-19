@@ -6,16 +6,18 @@ Usage :
       --master "local[4]" --driver-memory 3g \
       /opt/project/src/ml/rfm_segmentation.py            # k choisi automatiquement
   ... rfm_segmentation.py --k 4                           # k imposé
+  ... rfm_segmentation.py --k 3 --names "Champions,Occasionnels,Faible valeur"
+        (noms appliqués dans l'ordre du chiffre d'affaires décroissant)
 
 Méthode :
   - Acheteurs : variables RFM + comportement, log-transformées puis standardisées, K-Means.
       Récence    = jours entre le dernier achat et la fin de la période
       Fréquence  = nombre de SESSIONS d'achat distinctes (pas d'articles)
       Montant    = somme des prix des articles achetés
-      + nombre de sessions et nombre de catégories achetées
+      + nombre de sessions et diversité des produits (catégories fines, category_id)
   - k : choisi parmi 3..6 par silhouette maximale (ou imposé avec --k).
   - Non-acheteurs : règle simple (panier sans achat / simples visiteurs).
-  - Les noms de segments sont SUGGÉRÉS à partir d'un score composite : à valider d'après le profil.
+  - Segments numérotés par chiffre d'affaires décroissant ; à nommer d'après le profil (--names).
 """
 import argparse
 import csv
@@ -43,18 +45,14 @@ def save_df(df, name, out_dir):
     write_rows(os.path.join(out_dir, f"{name}.csv"), df.columns, df.collect())
 
 
-def zscores(vals):
-    m = sum(vals) / len(vals)
-    sd = (sum((x - m) ** 2 for x in vals) / len(vals)) ** 0.5 or 1.0
-    return [(x - m) / sd for x in vals]
-
-
 def main():
     p = argparse.ArgumentParser()
     p.add_argument("--input", default="/opt/project/data/silver/events")
     p.add_argument("--gold", default="/opt/project/data/gold/customer_segments")
     p.add_argument("--out-dir", default="/opt/project/docs/results")
     p.add_argument("--k", type=int, default=None, help="Nombre de clusters (sinon choix auto 3..6)")
+    p.add_argument("--names", default=None,
+                   help="Noms des segments séparés par des virgules, du plus au moins rentable")
     args = p.parse_args()
 
     spark = (
@@ -67,7 +65,7 @@ def main():
     t0 = time.time()
 
     ev = spark.read.parquet(args.input).select(
-        "user_id", "user_session", "event_type", "event_time", "price", "category_main"
+        "user_id", "user_session", "event_type", "event_time", "price", "category_id"
     )
     snap = ev.agg(F.max("event_time").alias("snap"))  # fin de la période observée
 
@@ -83,9 +81,7 @@ def main():
             F.sum(F.when(is_p, F.col("price")).otherwise(0.0)).alias("monetary"),
             F.max(F.when(is_p, F.col("event_time"))).alias("last_purchase"),
             F.countDistinct("user_session").alias("n_sessions"),
-            F.countDistinct(
-                F.when(is_p & (F.col("category_main") != "unknown"), F.col("category_main"))
-            ).alias("n_categories"),
+            F.countDistinct(F.when(is_p, F.col("category_id"))).alias("n_categories"),
         )
         .crossJoin(snap)
         .withColumn(
@@ -152,16 +148,12 @@ def main():
         F.round(F.avg("n_categories"), 2).alias("avg_categories"),
         F.round(F.sum("monetary"), 2).alias("revenue"),
     )
-    rows = prof.collect()
-    zr = zscores([r["avg_recency_days"] for r in rows])
-    zf = zscores([r["avg_frequency"] for r in rows])
-    zm = zscores([r["avg_monetary"] for r in rows])
-    score = [zf[i] + zm[i] - zr[i] for i in range(len(rows))]  # récent + fréquent + dépensier
-    order = sorted(range(len(rows)), key=lambda i: -score[i])
-    middle = ["Fidèles", "Réguliers", "Occasionnels", "Faible activité"]
-    middle += [f"Intermédiaire {i}" for i in range(1, 10)]
-    ladder = ["Champions"] + middle[: max(best_k - 2, 0)] + ["À risque"]
-    mapping = {int(rows[i]["cluster"]): ladder[rank] for rank, i in enumerate(order)}
+    rows = prof.orderBy(F.desc("revenue")).collect()  # du plus au moins rentable
+    custom = [n.strip() for n in args.names.split(",")] if args.names else []
+    if custom and len(custom) != len(rows):
+        raise SystemExit(f"--names doit contenir {len(rows)} noms (reçu {len(custom)})")
+    labels = custom or [f"Segment {i + 1}" for i in range(len(rows))]
+    mapping = {int(r["cluster"]): labels[i] for i, r in enumerate(rows)}
     names = spark.createDataFrame(list(mapping.items()), ["cluster", "segment"])
 
     prof_named = prof.join(names, "cluster").orderBy(F.desc("revenue"))
@@ -169,7 +161,7 @@ def main():
         "cluster", "segment", "users", "avg_recency_days", "avg_frequency",
         "avg_monetary", "avg_sessions", "avg_categories", "revenue",
     )
-    print("\nProfil des segments d'acheteurs (noms suggérés, à valider) :")
+    print("\nProfil des segments d'acheteurs (Segment 1 = le plus rentable) :")
     prof_named.show(truncate=False)
     save_df(prof_named, "segment_profiles", args.out_dir)
 
