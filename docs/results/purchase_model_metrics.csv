@@ -1,0 +1,4 @@
+model,auc_roc,auc_pr,precision_top10,recall_top10,lift_top10,train_rows,test_rows,train_base_rate,test_base_rate
+logistic_regression,0.7807,0.21,0.1629,0.4594,4.55,140977,230738,0.054,0.0358
+random_forest,0.7856,0.2244,0.1648,0.4647,4.6,140977,230738,0.054,0.0358
+gbt,0.7867,0.2123,0.1635,0.4608,4.57,140977,230738,0.054,0.0358
