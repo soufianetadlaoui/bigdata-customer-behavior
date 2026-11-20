@@ -1,0 +1,4 @@
+model,precision_at_10,recall_at_10,hit_rate_at_10,users_evaluated
+popularite_achats,0.0224,0.1586,0.1969,8259
+produits_recents,0.0353,0.2583,0.3119,8259
+als,0.0325,0.2308,0.2762,8259
