@@ -1,0 +1,4 @@
+v1
+{"path":"file:///opt/project/data/stream/out/kpi_per_minute/part-00000-654d009a-5249-4a63-9f8b-c6d4339d82e6-c000.json","size":0,"isDir":false,"modificationTime":1795465610983,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///opt/project/data/stream/out/kpi_per_minute/part-00002-3481a2e5-c317-4b21-b35a-056c51202289-c000.json","size":105,"isDir":false,"modificationTime":1795465611003,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///opt/project/data/stream/out/kpi_per_minute/part-00003-291e6156-eff4-4278-9c03-e388d1716590-c000.json","size":202,"isDir":false,"modificationTime":1795465610995,"blockReplication":1,"blockSize":33554432,"action":"add"}

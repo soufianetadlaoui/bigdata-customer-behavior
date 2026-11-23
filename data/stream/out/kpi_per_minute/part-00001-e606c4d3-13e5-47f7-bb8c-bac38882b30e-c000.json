@@ -1,0 +1,3 @@
+{"window_start":"2019-10-15T15:12:00.000Z","event_type":"cart","events":2,"revenue":0.0,"users":2}
+{"window_start":"2019-10-15T15:12:00.000Z","event_type":"view","events":166,"revenue":0.0,"users":109}
+{"window_start":"2019-10-15T15:12:00.000Z","event_type":"purchase","events":1,"revenue":172.18,"users":1}

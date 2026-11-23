@@ -1,0 +1,3 @@
+v1
+{"path":"file:///opt/project/data/stream/out/kpi_per_minute/part-00000-0a802c66-3008-479b-bb00-45edf5477c33-c000.json","size":99,"isDir":false,"modificationTime":1795465626946,"blockReplication":1,"blockSize":33554432,"action":"add"}
+{"path":"file:///opt/project/data/stream/out/kpi_per_minute/part-00001-8d3bba1e-8ee1-4f66-a30d-1eae2526301d-c000.json","size":209,"isDir":false,"modificationTime":1795465626989,"blockReplication":1,"blockSize":33554432,"action":"add"}
