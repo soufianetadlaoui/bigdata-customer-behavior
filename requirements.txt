@@ -1,11 +1,41 @@
-pyspark==3.5.1
-pandas
-pyarrow
-numpy
-matplotlib
-seaborn
-plotly
-scikit-learn
-jupyter
-streamlit
-boto3
+# =============================================================================
+# Dépendances Python de l'environnement Windows (.venv) du projet
+#   « Analyse du comportement client à grande échelle »
+#
+# Installation (depuis la racine du dépôt, .venv activé) :
+#       pip install -r requirements.txt
+#
+# Python 3.10 ou supérieur recommandé.
+#
+# IMPORTANT : Apache Spark n'est PAS installé par ce fichier. Spark tourne dans
+# Docker (image apache/spark:3.5.1-python3 + numpy, voir docker/spark/Dockerfile).
+# Les scripts Spark (src/ingestion, src/processing, src/ml, src/streaming,
+# benchmarks/benchmark.py) s'exécutent dans le conteneur ; ce fichier ne concerne
+# que les scripts lancés directement sous Windows.
+# =============================================================================
+
+# --- Manipulation de données (make_sample.py, stream_producer.py, bench_pandas.py,
+#     scripts de graphiques, tableau de bord) ---------------------------------
+pandas>=2.2
+numpy>=1.26
+
+# Lecture des fichiers Parquet produits par Spark (stream_producer.py, dashboard)
+pyarrow>=15.0
+
+# --- Graphiques du rapport (make_charts.py, make_*_charts.py) ---------------
+matplotlib>=3.8
+
+# --- Tableau de bord (dashboard/app.py) -------------------------------------
+# Borne supérieure : version avec laquelle le tableau de bord a été validé.
+streamlit>=1.40,<1.50
+plotly>=5.20
+
+# =============================================================================
+# OPTIONNEL : développement et tests locaux (décommenter si nécessaire)
+# =============================================================================
+# pytest>=8.0
+#
+# PySpark en local : uniquement pour tests/test_spark_smoke.py. Nécessite Java 11
+# ou 17 installé sur Windows ; inutile pour exécuter le pipeline via Docker.
+# La version doit correspondre à celle de l'image Docker (3.5.1).
+# pyspark==3.5.1
