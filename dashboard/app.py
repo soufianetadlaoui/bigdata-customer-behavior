@@ -76,8 +76,8 @@ def page_overview():
     c = st.columns(5)
     c[0].metric("Clients", f"{int(k['users']):,}")
     c[1].metric("Sessions", f"{int(k['sessions']):,}")
-    c[2].metric("Acheteurs", f"{int(k['buyers']):,}",
-                f"{100 * k['buyers'] / k['users']:.1f} % des clients", delta_color="off")
+    c[2].metric("Acheteurs", f"{int(k['buyers']):,}")
+    c[2].caption(f"{100 * k['buyers'] / k['users']:.1f} % des clients")
     c[3].metric("Chiffre d'affaires", f"{k['revenue']:,.0f}")
     c[4].metric("CA par acheteur", f"{k['revenue'] / k['buyers']:,.0f}")
 

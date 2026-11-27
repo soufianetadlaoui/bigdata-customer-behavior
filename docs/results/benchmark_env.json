@@ -1,0 +1,10 @@
+{
+  "date": "2026-11-24T19:57:48",
+  "spark": "3.5.1",
+  "master": "local[4]",
+  "parallelisme": 4,
+  "cpu_visibles_conteneur": 4,
+  "driver_memory": "3g",
+  "shuffle_partitions": "16",
+  "python": "3.8.10"
+}
